@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/ApplicationCore/" />
+  <Folder Name="/Domain/">
+    <Project Path="MusicianFinder.Domain/MusicianFinder.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Presentation/">
+    <Project Path="MusicianFinder_Back/MusicianFinder_Back.WebAPI.csproj" />
+  </Folder>
+</Solution>
