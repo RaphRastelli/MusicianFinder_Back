@@ -4,7 +4,9 @@ using System.Text;
 
 namespace MusicianFinder.Domain.Models
 {
-    internal class ProjectType
+    public class ProjectType
     {
+        public long TypeId { get; private set; }
+        public string? Type { get; private set; }
     }
 }
