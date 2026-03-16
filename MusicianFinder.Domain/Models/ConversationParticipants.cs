@@ -6,7 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class ConversationParticipants
     {
-        public Conversation? Conversation { get; private set; }
-        public Musician? Musician { get; private set; }
+        public Conversation Conversation { get; private set; } = null!;
+        public Musician Musician { get; private set; } = null!;
     }
 }
