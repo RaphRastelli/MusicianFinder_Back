@@ -7,7 +7,7 @@ namespace MusicianFinder.Domain.Models
     public class MusicianPlaysInstrument
     {
         public Musician? Musician { get; private set; }
-        public IEnumerable<Instrument>? InstrumentList { get; private set; }
-        public Instrument? MainInstrument { get; private set; }
+        public Instrument? MusicianInstrument { get; private set; }
+        public bool IsMainInstrument { get; private set; }
     }
 }

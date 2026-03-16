@@ -6,5 +6,8 @@ namespace MusicianFinder.Domain.Models
 {
     public class Conversation
     {
+        public long ConversationId { get; private set; }
+        public DateTime DateCreation { get; private set; }
+        public DateTime DateLastRead { get; private set; }
     }
 }

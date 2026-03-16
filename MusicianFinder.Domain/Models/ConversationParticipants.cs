@@ -4,9 +4,9 @@ using System.Text;
 
 namespace MusicianFinder.Domain.Models
 {
-    public class MusicianLocations
+    public class ConversationParticipants
     {
+        public Conversation? Conversation { get; private set; }
         public Musician? Musician { get; private set; }
-        public Location? MusicianLocation { get; private set; }
     }
 }
