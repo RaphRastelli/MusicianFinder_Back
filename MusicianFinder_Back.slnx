@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/ApplicationCore/" />
+  <Folder Name="/ApplicationCore/">
+    <Project Path="Musicianfinder_Back.ApplicationCore/Musicianfinder_Back.ApplicationCore.csproj" Id="b5a7f0f5-83c5-42fd-9807-5fb5af5fc4d0" />
+  </Folder>
   <Folder Name="/Domain/">
     <Project Path="MusicianFinder.Domain/MusicianFinder.Domain.csproj" />
   </Folder>

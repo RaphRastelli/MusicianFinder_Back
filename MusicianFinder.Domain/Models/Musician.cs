@@ -1,4 +1,5 @@
 ﻿using MusicianFinder.Domain.Enums;
+using System.Net.Mail;
 using System.Numerics;
 
 namespace MusicianFinder.Domain.Models
@@ -17,7 +18,7 @@ namespace MusicianFinder.Domain.Models
         public string BgColor { get; private set; } = "#FFFFFF";
         public string FontFamily { get; private set; } = "Arial";
         public string TextColor { get; private set; } = "#000000";
-        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime CreatedAt { get; private set; }
 
         // Properties from other models
         public ICollection<MusicianPlaysInstrument> Instruments { get; set; } = [];
@@ -25,9 +26,36 @@ namespace MusicianFinder.Domain.Models
         public ICollection<MusicianLocation> Locations { get; set; } = [];
         public ICollection<MusicianProjectType> ProjectTypes { get; set; } = [];
 
+
         // Ctor
         // Empty for EntityFramework
         private Musician() { }
+
+        // ctor pour base de la création d'un Musician (avec validation email et username entre 4 et 50 caractères)
+        public Musician(string username, string email, DateTime createdAt, string? passwordhash = null)
+        {
+            if (username == null || username.Trim().Length < 4 || username.Trim().Length > 50) 
+                throw new ArgumentException("Le username doit contenir entre 4 et 50 caractères.", nameof(username));
+
+            if (string.IsNullOrWhiteSpace(email) || !MailAddress.TryCreate(email, out _))
+                throw new ArgumentException("E-mail invalide.", nameof(email));
+
+            Username = username.Trim();
+            Email = email.Trim().ToLower();
+            CreatedAt = DateTime.Now;
+        }
+
+        // ctor avec id pour récup et insertion en db
+        public Musician(long id, string username, string email, DateTime createdAt, string description, MusicianRoleEnum role, AbilityLevelEnum ability, AvailabilityLevelEnum availability, string bgColor, string fontFamily, string textColor, string? passwordhash = null)
+            :this(username, email, createdAt, passwordhash)
+        { 
+            Id = id;
+            Role = role;
+        }
+
+        // TODO ctor pour update
+
+
 
     }
 }
