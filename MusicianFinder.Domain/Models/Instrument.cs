@@ -8,5 +8,9 @@ namespace MusicianFinder.Domain.Models
     {
         public long InstrumentId { get; private set; }
         public string InstrumentName { get; private set; } = null!;
+
+        // Ctor
+        // Empty for EntityFramework
+        private Instrument() { }
     }
 }

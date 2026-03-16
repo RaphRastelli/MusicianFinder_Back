@@ -3,7 +3,9 @@
   <Folder Name="/Domain/">
     <Project Path="MusicianFinder.Domain/MusicianFinder.Domain.csproj" />
   </Folder>
-  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Infrastructure/">
+    <Project Path="MusicianFinder_Back.Infrastructure/MusicianFinder_Back.Infrastructure.csproj" Id="644c98d8-9d91-4cf2-81b7-a3211b1b4a8e" />
+  </Folder>
   <Folder Name="/Presentation/">
     <Project Path="MusicianFinder_Back/MusicianFinder_Back.WebAPI.csproj" />
   </Folder>

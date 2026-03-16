@@ -4,13 +4,17 @@ using System.Text;
 
 namespace MusicianFinder.Domain.Models
 {
-    public class MusicianLocations
+    public class MusicianLocation
     {
         public long MusicianId { get; private set; }
         public long LocationId { get; private set; }
 
-        // Navigation properties (optionnelles mais utiles pour les includes EFCore)
+        // Navigation properties
         public Musician Musician { get; private set; } = null!;
-        public Location MusicianLocation { get; private set; } = null!;
+        public Location MusLocation { get; private set; } = null!;
+
+        // Ctor
+        // Empty for EntityFramework
+        private MusicianLocation() { }
     }
 }

@@ -9,5 +9,9 @@ namespace MusicianFinder.Domain.Models
         public long ConversationId { get; private set; }
         public DateTime DateCreation { get; private set; }
         public DateTime DateLastRead { get; private set; }
+
+        // Ctor
+        // Empty for EntityFramework
+        private Conversation() { }
     }
 }

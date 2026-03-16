@@ -20,10 +20,14 @@ namespace MusicianFinder.Domain.Models
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
         // Properties from other models
-        public ICollection<MusicianPlaysInstruments> Instruments { get; set; } = new List<MusicianPlaysInstruments>();
-        public ICollection<MusicianLikesStyles> MusicStyles { get; set; } = new List<MusicianLikesStyles>();
-        public ICollection<MusicianLocations> Locations { get; set; } = new List<MusicianLocations>();
-        public ICollection<MusicianProjectTypes> ProjectTypes { get; set; } = new List<MusicianProjectTypes>();
+        public ICollection<MusicianPlaysInstrument> Instruments { get; set; } = [];
+        public ICollection<MusicianLikesStyle> MusicStyles { get; set; } = [];
+        public ICollection<MusicianLocation> Locations { get; set; } = [];
+        public ICollection<MusicianProjectType> ProjectTypes { get; set; } = [];
+
+        // Ctor
+        // Empty for EntityFramework
+        private Musician() { }
 
     }
 }
