@@ -14,7 +14,7 @@ namespace MusicianFinder.Domain.Models
         public ProjectType MusProjectType { get; private set; } = null!;
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private MusicianProjectType() { }
     }
 }

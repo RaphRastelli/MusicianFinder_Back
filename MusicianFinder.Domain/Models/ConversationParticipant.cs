@@ -10,7 +10,7 @@ namespace MusicianFinder.Domain.Models
         public Musician Musician { get; private set; } = null!;
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private ConversationParticipant() { }
     }
 }

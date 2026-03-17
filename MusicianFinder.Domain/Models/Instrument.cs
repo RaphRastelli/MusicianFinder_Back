@@ -10,7 +10,7 @@ namespace MusicianFinder.Domain.Models
         public string InstrumentName { get; private set; } = null!;
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private Instrument() { }
     }
 }

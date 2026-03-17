@@ -11,7 +11,7 @@ namespace MusicianFinder.Domain.Models
         public DateTime DateLastRead { get; private set; }
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private Conversation() { }
     }
 }

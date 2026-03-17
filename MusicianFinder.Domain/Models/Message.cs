@@ -14,7 +14,7 @@ namespace MusicianFinder.Domain.Models
         public bool IsSuppressed { get; private set; }
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private Message() { }
     }
 }

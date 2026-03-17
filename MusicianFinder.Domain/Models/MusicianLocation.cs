@@ -14,7 +14,7 @@ namespace MusicianFinder.Domain.Models
         public Location MusLocation { get; private set; } = null!;
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private MusicianLocation() { }
     }
 }

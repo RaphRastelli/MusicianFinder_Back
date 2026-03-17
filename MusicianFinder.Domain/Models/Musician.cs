@@ -26,15 +26,14 @@ namespace MusicianFinder.Domain.Models
         public ICollection<MusicianLocation> Locations { get; set; } = [];
         public ICollection<MusicianProjectType> ProjectTypes { get; set; } = [];
 
-
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private Musician() { }
 
         // ctor pour base de la création d'un Musician (avec validation email et username entre 4 et 50 caractères)
         public Musician(string username, string email, DateTime createdAt, string? passwordhash = null)
         {
-            if (username == null || username.Trim().Length < 4 || username.Trim().Length > 50) 
+            if (username is null || username.Trim().Length < 4 || username.Trim().Length > 50) 
                 throw new ArgumentException("Le username doit contenir entre 4 et 50 caractères.", nameof(username));
 
             if (string.IsNullOrWhiteSpace(email) || !MailAddress.TryCreate(email, out _))

@@ -16,13 +16,28 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             _DbContext = dbContext;
         }
 
-        // Implementation repository - TODO ctor Musician
-        /*public Musician GetById(long id)
+        Musician IMusicianRepository.GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        Musician IMusicianRepository.GetById(long id)
         {
             var result = _DbContext.Musicians.SingleOrDefault(m => m.Id == id);
 
-            if (result == null) { return null}
-            return new Musician(result.Id, result.Username, result.Email);
-        }*/
+            if (result == null) { return null; }
+            return new Musician(result.Username, result.Email, result.CreatedAt, result.PasswordHash);
+        }
+
+        string IMusicianRepository.GetHashPwd(long email)
+        {
+            return _DbContext.Musicians.SingleOrDefault(m => m.Email == email)?.PasswordHash;
+        }
+
+        Musician IMusicianRepository.Insert(Musician data)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

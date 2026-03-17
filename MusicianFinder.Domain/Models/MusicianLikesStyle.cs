@@ -15,7 +15,7 @@ namespace MusicianFinder.Domain.Models
         public MusicStyle MusicianStyle { get; private set; } = null!;
 
         // Ctor
-        // Empty for EntityFramework
+        // Vide pour EntityFramework
         private MusicianLikesStyle() { }
     }
 }
