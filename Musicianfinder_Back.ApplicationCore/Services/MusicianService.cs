@@ -29,6 +29,7 @@ namespace Musicianfinder_Back.ApplicationCore.Services
                 throw new ArgumentNullException("Password manquant");
             }
 
+
             // Hashage password
             string hash = Argon2HashingUtil.Hash(musician.PasswordHash).Result;
 
