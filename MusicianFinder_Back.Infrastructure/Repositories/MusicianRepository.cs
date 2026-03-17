@@ -1,4 +1,6 @@
-﻿using MusicianFinder.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MusicianFinder.Domain.Models;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -28,7 +30,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             var result = _DbContext.Musicians.SingleOrDefault(m => m.Id == id);
 
             if (result == null) { return null; }
-            return new Musician(result.Username, result.Email, result.CreatedAt, result.PasswordHash);
+            return new Musician(result.Username, result.Email, result.PasswordHash);
         }
 
         public string? GetHashPwd(string email)
@@ -36,9 +38,14 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             return _DbContext.Musicians.SingleOrDefault(m => m.Email == email)?.PasswordHash;
         }
 
-        public Musician Insert(Musician data)
+        public Musician Insert(Musician musician)
         {
-            throw new NotImplementedException();
+            EntityEntry<Musician> element = _DbContext.Musicians.Add(musician);
+            _DbContext.SaveChanges();
+
+            var result = element.Entity;
+
+            return new Musician(musician.Id, musician.Username, musician.PasswordHash);
         }
 
     }

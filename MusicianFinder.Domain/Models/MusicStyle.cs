@@ -12,5 +12,19 @@ namespace MusicianFinder.Domain.Models
         // Ctor
         // Vide pour EntityFramework
         private MusicStyle() { }
+
+        // Ctor pour créer un style
+        public MusicStyle(
+           string styleName)
+        {
+            StyleName = styleName;
+        }
+
+        // Ctor pour récupérer un style
+        public MusicStyle(long styleId, string styleName)
+        {
+            StyleId = styleId;
+            StyleName = styleName;
+        }
     }
 }

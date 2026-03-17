@@ -12,5 +12,19 @@ namespace MusicianFinder.Domain.Models
         // Ctor
         // Vide pour EntityFramework
         private Instrument() { }
+
+        // Ctor pour créer un instrument
+        public Instrument( 
+           string instrumentName) 
+        { 
+            InstrumentName = instrumentName; 
+        }
+
+        // Ctor pour récupérer un instrument
+        public Instrument(long instrumentId, string instrumentName)
+        {  
+            InstrumentId = instrumentId; 
+            InstrumentName = instrumentName; 
+        }
     }
 }

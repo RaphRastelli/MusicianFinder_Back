@@ -44,6 +44,15 @@ namespace MusicianFinder.Domain.Models
             CreatedAt = DateTime.Now;
         }
 
+        // ctor avec id pour récup et insertion en db simple
+        public Musician(long id, string username, string email, string? passwordhash = null)
+            :this(username, email, passwordhash)
+        {
+            Id = id;
+            Username = username;
+            Email = email;
+        }
+
         // ctor avec id pour récup et insertion en db
         public Musician(long id, string username, string email, DateTime createdAt, string description, MusicianRoleEnum role, AbilityLevelEnum ability, AvailabilityLevelEnum availability, string bgColor, string fontFamily, string textColor, string? passwordhash = null)
             :this(username, email, passwordhash)
