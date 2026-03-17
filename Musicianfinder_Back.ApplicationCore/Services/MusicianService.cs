@@ -23,22 +23,29 @@ namespace Musicianfinder_Back.ApplicationCore.Services
             throw new NotImplementedException();
         }
 
-        public Musician Register(Musician musician)
+        public Musician Register(string username, string email, string password)
         {
-            if (string.IsNullOrEmpty(musician.PasswordHash))
+            if (string.IsNullOrEmpty(password))
             { 
                 throw new ArgumentNullException("Password manquant");
             }
 
+            if (string.IsNullOrEmpty(username)) 
+            { 
+                throw new ArgumentNullException("Username manquant");
+            }
+
+            if (_musicianRepository.GetByEmail(email) is not null)
+                throw new Exception("Cet e-mail existe déjà");
+
 
             // Hashage password
-            string hash = Argon2HashingUtil.Hash(musician.PasswordHash).Result;
+            string hash = Argon2HashingUtil.Hash(password).Result;
 
             // Recréation Musician avec pswd hashé
             Musician musicianToInsert = new Musician(
-                musician.Username,
-                musician.Email,
-                musician.CreatedAt,
+                username,
+                email,
                 hash
                 );
 

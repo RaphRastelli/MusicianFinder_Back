@@ -31,7 +31,7 @@ namespace MusicianFinder.Domain.Models
         private Musician() { }
 
         // ctor pour base de la création d'un Musician (avec validation email et username entre 4 et 50 caractères)
-        public Musician(string username, string email, DateTime createdAt, string? passwordhash = null)
+        public Musician(string username, string email, string? passwordhash = null)
         {
             if (username is null || username.Trim().Length < 4 || username.Trim().Length > 50) 
                 throw new ArgumentException("Le username doit contenir entre 4 et 50 caractères.", nameof(username));
@@ -46,9 +46,10 @@ namespace MusicianFinder.Domain.Models
 
         // ctor avec id pour récup et insertion en db
         public Musician(long id, string username, string email, DateTime createdAt, string description, MusicianRoleEnum role, AbilityLevelEnum ability, AvailabilityLevelEnum availability, string bgColor, string fontFamily, string textColor, string? passwordhash = null)
-            :this(username, email, createdAt, passwordhash)
+            :this(username, email, passwordhash)
         { 
             Id = id;
+            Email = email;
             Role = role;
         }
 
