@@ -17,12 +17,13 @@ namespace Musicianfinder_Back.ApplicationCore.Services
             _musicianRepository = musicianRepository;
         }
 
-        Musician IMusicianService.Login(string email, string password)
+
+        public Musician Login(string email, string password)
         {
             throw new NotImplementedException();
         }
 
-        Musician IMusicianService.Register(Musician musician)
+        public Musician Register(Musician musician)
         {
             if (string.IsNullOrEmpty(musician.PasswordHash))
             { 

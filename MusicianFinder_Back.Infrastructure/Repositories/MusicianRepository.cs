@@ -16,12 +16,14 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             _DbContext = dbContext;
         }
 
-        Musician IMusicianRepository.GetByEmail(string email)
+        public Musician? GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            var result = _DbContext.Musicians.SingleOrDefault(m => m.Email == email);
+
+            return new Musician(result.Id, result.Username, result.Email, result.CreatedAt, result.Description, result.Role, result.Ability, result.Availability, result.BgColor, result.FontFamily, result.TextColor, result.PasswordHash);
         }
 
-        Musician IMusicianRepository.GetById(long id)
+        public Musician? GetById(long id)
         {
             var result = _DbContext.Musicians.SingleOrDefault(m => m.Id == id);
 
@@ -29,12 +31,12 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             return new Musician(result.Username, result.Email, result.CreatedAt, result.PasswordHash);
         }
 
-        string IMusicianRepository.GetHashPwd(long email)
+        public string? GetHashPwd(string email)
         {
             return _DbContext.Musicians.SingleOrDefault(m => m.Email == email)?.PasswordHash;
         }
 
-        Musician IMusicianRepository.Insert(Musician data)
+        public Musician Insert(Musician data)
         {
             throw new NotImplementedException();
         }

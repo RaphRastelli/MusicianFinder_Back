@@ -10,7 +10,7 @@ namespace MusicianFinder.Domain.Models
         public long Id { get; private set; }
         public string Username { get; private set; } = null!;
         public string PasswordHash { get; private set; } = null!;
-        public string Email { get; private set; } = default!;
+        public string Email { get; private set; } = null!;
         public string Description { get; private set; } = null!;
         public MusicianRoleEnum Role { get; private set; }
         public AbilityLevelEnum Ability { get; private set; }

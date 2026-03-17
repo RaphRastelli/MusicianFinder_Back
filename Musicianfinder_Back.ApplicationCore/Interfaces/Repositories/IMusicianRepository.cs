@@ -7,9 +7,9 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
 {
     public interface IMusicianRepository
     {
-        Musician GetById(long id);
+        Musician? GetById(long id);
         Musician Insert(Musician data);
-        string GetHashPwd(long email);
-        Musician GetByEmail(string email);
+        string? GetHashPwd(string email);
+        Musician? GetByEmail(string email);
     }
 }
