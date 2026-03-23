@@ -13,7 +13,7 @@ namespace MusicianFinder_Back.Infrastructure.Configs
         public void Configure(EntityTypeBuilder<Musician> builder) 
         {
             // Table
-            builder.ToTable("Musicians");
+            builder.ToTable("Musician");
 
             // Clé
             builder.HasKey(m => m.Id)
