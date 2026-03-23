@@ -6,7 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class MusicStyle
     {
-        public long StyleId { get; private set; }
+        public int StyleId { get; private set; }
         public string StyleName { get; private set; } = null!;
 
         // Ctor
@@ -21,7 +21,7 @@ namespace MusicianFinder.Domain.Models
         }
 
         // Ctor pour récupérer un style
-        public MusicStyle(long styleId, string styleName)
+        public MusicStyle(int styleId, string styleName)
         {
             StyleId = styleId;
             StyleName = styleName;

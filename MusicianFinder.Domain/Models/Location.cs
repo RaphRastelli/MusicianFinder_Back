@@ -7,7 +7,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class Location
     {
-        public long LocationId { get; private set; }
+        public int LocationId { get; private set; }
         public string LocationName { get; private set; } = null!;
 
         // Ctor
@@ -22,7 +22,7 @@ namespace MusicianFinder.Domain.Models
         }
 
         // Ctor pour récupérer une localisation
-        public Location(long locationId, string locationName)
+        public Location(int locationId, string locationName)
         {
             LocationId = locationId;
             LocationName = locationName;

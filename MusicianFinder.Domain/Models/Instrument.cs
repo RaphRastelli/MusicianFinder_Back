@@ -6,7 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class Instrument
     {
-        public long InstrumentId { get; private set; }
+        public int InstrumentId { get; private set; }
         public string InstrumentName { get; private set; } = null!;
 
         // Ctor
@@ -21,7 +21,7 @@ namespace MusicianFinder.Domain.Models
         }
 
         // Ctor pour récupérer un instrument
-        public Instrument(long instrumentId, string instrumentName)
+        public Instrument(int instrumentId, string instrumentName)
         {  
             InstrumentId = instrumentId; 
             InstrumentName = instrumentName; 

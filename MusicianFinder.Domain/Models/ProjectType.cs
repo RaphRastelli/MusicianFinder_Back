@@ -7,7 +7,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class ProjectType
     {
-        public long ProjectTypeId { get; private set; }
+        public int ProjectTypeId { get; private set; }
         public string TypeName { get; private set; } = null!;
 
         // Ctor
@@ -15,7 +15,7 @@ namespace MusicianFinder.Domain.Models
         private ProjectType() { }
 
         // Ctor pour récupérer un type
-        public ProjectType(long projectTypeId, string typeName)
+        public ProjectType(int projectTypeId, string typeName)
         {
             ProjectTypeId = projectTypeId;
             TypeName = typeName;
