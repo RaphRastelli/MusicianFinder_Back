@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicianFinder_Back.Infrastructure;
 
@@ -11,9 +12,11 @@ using MusicianFinder_Back.Infrastructure;
 namespace MusicianFinder_Back.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260324142334_Many_To_many")]
+    partial class Many_To_many
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -584,24 +587,20 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusicianStyleId"));
-
                     b.Property<bool>("IsMainStyle")
                         .HasColumnType("bit")
                         .HasColumnName("Is_Main_Style");
 
-                    b.Property<long>("MusicianIdFK")
+                    b.Property<long>("MusicianId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("StyleIdFK")
+                    b.Property<int>("StyleId")
                         .HasColumnType("int");
 
                     b.HasKey("MusicianStyleId")
                         .HasName("PK_Musician_Styles");
 
-                    b.HasIndex("MusicianIdFK");
-
-                    b.HasIndex("StyleIdFK");
+                    b.HasIndex("MusicianId");
 
                     b.ToTable("Musician_Styles", (string)null);
                 });
@@ -614,18 +613,18 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusicianLocId"));
 
-                    b.Property<int>("LocationIdFK")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<long>("MusicianIdFK")
+                    b.Property<long>("MusicianId")
                         .HasColumnType("bigint");
 
                     b.HasKey("MusicianLocId")
                         .HasName("PK_Musician_Locations");
 
-                    b.HasIndex("LocationIdFK");
+                    b.HasIndex("LocationId");
 
-                    b.HasIndex("MusicianIdFK");
+                    b.HasIndex("MusicianId");
 
                     b.ToTable("Musician_Locations", (string)null);
                 });
@@ -638,22 +637,27 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusInstrumentId"));
 
-                    b.Property<int>("InstrumentIdFK")
+                    b.Property<int>("InstrumentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InstrumentId1")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsMainInstrument")
                         .HasColumnType("bit")
                         .HasColumnName("Is_Main_Instrument");
 
-                    b.Property<long>("MusicianIdFK")
+                    b.Property<long>("MusicianId")
                         .HasColumnType("bigint");
 
                     b.HasKey("MusInstrumentId")
                         .HasName("PK_Musician_Instruments");
 
-                    b.HasIndex("InstrumentIdFK");
+                    b.HasIndex("InstrumentId");
 
-                    b.HasIndex("MusicianIdFK");
+                    b.HasIndex("InstrumentId1");
+
+                    b.HasIndex("MusicianId");
 
                     b.ToTable("Musician_Instruments", (string)null);
                 });
@@ -666,18 +670,18 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MusProjectId"));
 
-                    b.Property<long>("MusicianIdFK")
+                    b.Property<long>("MusicianId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("ProjectTypeIdFK")
+                    b.Property<int>("ProjectTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("MusProjectId")
                         .HasName("PK_Musician_Project_Types");
 
-                    b.HasIndex("MusicianIdFK");
+                    b.HasIndex("MusicianId");
 
-                    b.HasIndex("ProjectTypeIdFK");
+                    b.HasIndex("ProjectTypeId");
 
                     b.ToTable("Musician_Project_Types", (string)null);
                 });
@@ -775,13 +779,13 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     b.HasOne("MusicianFinder.Domain.Models.Musician", "Musician")
                         .WithMany("MusicStyles")
-                        .HasForeignKey("MusicianIdFK")
+                        .HasForeignKey("MusicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MusicianFinder.Domain.Models.MusicStyle", "MusicianStyle")
                         .WithMany("Musicians")
-                        .HasForeignKey("StyleIdFK")
+                        .HasForeignKey("MusicianStyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -794,13 +798,13 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     b.HasOne("MusicianFinder.Domain.Models.Location", "Location")
                         .WithMany("Musicians")
-                        .HasForeignKey("LocationIdFK")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MusicianFinder.Domain.Models.Musician", "Musician")
                         .WithMany("Locations")
-                        .HasForeignKey("MusicianIdFK")
+                        .HasForeignKey("MusicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -812,14 +816,18 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
             modelBuilder.Entity("MusicianFinder.Domain.Models.MusicianPlaysInstrument", b =>
                 {
                     b.HasOne("MusicianFinder.Domain.Models.Instrument", "Instrument")
-                        .WithMany("Musicians")
-                        .HasForeignKey("InstrumentIdFK")
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MusicianFinder.Domain.Models.Instrument", null)
+                        .WithMany("Musicians")
+                        .HasForeignKey("InstrumentId1");
+
                     b.HasOne("MusicianFinder.Domain.Models.Musician", "Musician")
                         .WithMany("Instruments")
-                        .HasForeignKey("MusicianIdFK")
+                        .HasForeignKey("MusicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -832,13 +840,13 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     b.HasOne("MusicianFinder.Domain.Models.Musician", "Musician")
                         .WithMany("ProjectTypes")
-                        .HasForeignKey("MusicianIdFK")
+                        .HasForeignKey("MusicianId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MusicianFinder.Domain.Models.ProjectType", "ProjectType")
                         .WithMany("Musicians")
-                        .HasForeignKey("ProjectTypeIdFK")
+                        .HasForeignKey("ProjectTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

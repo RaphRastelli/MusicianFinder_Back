@@ -7,8 +7,8 @@ namespace MusicianFinder.Domain.Models
     public class MusicianLikesStyle
     {
         public int MusicianStyleId { get; private set; }
-        public long MusicianId { get; private set; }
-        public int StyleId { get; private set; }
+        public long MusicianIdFK { get; private set; }
+        public int StyleIdFK { get; private set; }
         public bool IsMainStyle { get; private set; }
 
         // Navigation properties

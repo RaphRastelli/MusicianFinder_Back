@@ -10,6 +10,9 @@ namespace MusicianFinder.Domain.Models
         public int ProjectTypeId { get; private set; }
         public string TypeName { get; private set; } = null!;
 
+        // Properties from other models
+        public ICollection<MusicianProjectType> Musicians { get; set; } = [];
+
         // Ctor
         // Vide pour EntityFramework
         private ProjectType() { }

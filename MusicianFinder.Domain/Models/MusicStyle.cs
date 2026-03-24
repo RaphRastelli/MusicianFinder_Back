@@ -9,6 +9,9 @@ namespace MusicianFinder.Domain.Models
         public int StyleId { get; private set; }
         public string StyleName { get; private set; } = null!;
 
+        // Properties from other models
+        public ICollection<MusicianLikesStyle> Musicians { get; set; } = [];
+
         // Ctor
         // Vide pour EntityFramework
         private MusicStyle() { }

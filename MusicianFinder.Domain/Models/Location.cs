@@ -10,6 +10,9 @@ namespace MusicianFinder.Domain.Models
         public int LocationId { get; private set; }
         public string LocationName { get; private set; } = null!;
 
+        // Properties from other models
+        public ICollection<MusicianLocation> Musicians { get; set; } = [];
+
         // Ctor
         // Vide pour EntityFramework
         private Location() { }

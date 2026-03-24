@@ -20,13 +20,13 @@ namespace MusicianFinder_Back.Infrastructure.Configs
                 .ValueGeneratedOnAdd();
 
             builder.HasOne(ms => ms.Musician)
-                .WithMany()
-                .HasForeignKey(ms => ms.MusicianId)
+                .WithMany(m => m.ProjectTypes)
+                .HasForeignKey(ms => ms.MusicianIdFK)
                 .IsRequired();
 
             builder.HasOne(ms => ms.ProjectType)
-                .WithMany()
-                .HasForeignKey(ms => ms.ProjectTypeId)
+                .WithMany(s => s.Musicians)
+                .HasForeignKey(ms => ms.ProjectTypeIdFK)
                 .IsRequired();
         }
     }
