@@ -7,7 +7,7 @@ namespace MusicianFinder.Domain.Models
     public class MusicianLocation
     {
         public long MusicianId { get; private set; }
-        public long LocationId { get; private set; }
+        public int LocationId { get; private set; }
 
         // Navigation properties
         public Musician Musician { get; private set; } = null!;

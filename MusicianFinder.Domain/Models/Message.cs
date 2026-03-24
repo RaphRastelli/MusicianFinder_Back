@@ -6,7 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class Message
     {
-        public int MessageId { get; private set; }
+        public long MessageId { get; private set; }
         public Conversation Conversation { get; private set; } = null!;
         public Musician SenderMusician { get; private set; } = null!;
         public string Content { get; private set; } = null!;

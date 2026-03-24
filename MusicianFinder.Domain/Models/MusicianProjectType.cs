@@ -7,7 +7,7 @@ namespace MusicianFinder.Domain.Models
     public class MusicianProjectType
     {
         public long MusicianId { get; private set; }
-        public long ProjectTypeId { get; private set; }
+        public int ProjectTypeId { get; private set; }
 
         // Navigation properties
         public Musician Musician { get; private set; } = null!;

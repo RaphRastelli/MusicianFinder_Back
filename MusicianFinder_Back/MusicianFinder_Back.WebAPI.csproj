@@ -21,4 +21,8 @@
     <ProjectReference Include="..\MusicianFinder_Back.Infrastructure\MusicianFinder_Back.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
