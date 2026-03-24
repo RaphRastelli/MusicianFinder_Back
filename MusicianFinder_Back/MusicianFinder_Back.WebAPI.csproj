@@ -16,4 +16,9 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.13.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Musicianfinder_Back.ApplicationCore\Musicianfinder_Back.ApplicationCore.csproj" />
+    <ProjectReference Include="..\MusicianFinder_Back.Infrastructure\MusicianFinder_Back.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

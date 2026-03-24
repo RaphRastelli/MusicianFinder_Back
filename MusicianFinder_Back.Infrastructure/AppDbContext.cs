@@ -66,8 +66,8 @@ namespace MusicianFinder_Back.Infrastructure
                 new Instrument (23, "Cornemuse"),
                 new Instrument (24, "Accordéon"),
                 new Instrument (25, "Banjo"),
-                new Instrument (26, "Mandoline"),
-                new Instrument (27, "Luth"),
+                new Instrument (26, "Luth"),
+                new Instrument (27, "Turntable/DJ"),
                 new Instrument (28, "Autre instrument acoustique"),
                 new Instrument (29, "Autre instrument électrique"),
                 new Instrument (30, "Autre instrument électronique")
