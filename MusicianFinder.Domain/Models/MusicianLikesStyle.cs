@@ -6,6 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class MusicianLikesStyle
     {
+        public long MusicianStyleId { get; private set; }
         public long MusicianId { get; private set; }
         public int StyleId { get; private set; }
         public bool IsMainStyle { get; private set; }
