@@ -6,7 +6,7 @@ namespace MusicianFinder.Domain.Models
 {
     public class MusicianProjectType
     {
-        public long MusProjectId { get; private set; }
+        public int MusProjectId { get; private set; }
         public long MusicianId { get; private set; }
         public int ProjectTypeId { get; private set; }
 
