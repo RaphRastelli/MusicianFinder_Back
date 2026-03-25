@@ -10,7 +10,8 @@ namespace MusicianFinder.Domain.Models
         public string StyleName { get; private set; } = null!;
 
         // Properties from other models
-        public ICollection<MusicianLikesStyle> Musicians { get; set; } = [];
+        public ICollection<MusicianLikesStyle> MM_MusicianMusicStyles { get; set; } = [];
+        public ICollection<Musician> Musicians { get; set; } = [];
 
         // Ctor
         // Vide pour EntityFramework

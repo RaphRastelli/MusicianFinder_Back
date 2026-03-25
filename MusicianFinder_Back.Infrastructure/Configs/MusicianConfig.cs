@@ -10,7 +10,7 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 {
     internal class MusicianConfig : IEntityTypeConfiguration<Musician>
     {
-        public void Configure(EntityTypeBuilder<Musician> builder) 
+        public void Configure(EntityTypeBuilder<Musician> builder)
         {
             // Table
             builder.ToTable("Musician");
@@ -81,7 +81,27 @@ namespace MusicianFinder_Back.Infrastructure.Configs
             // Index
             builder.HasIndex(m => m.Email)
                 .IsUnique()
-                .HasDatabaseName("IX_Misicians__Email");
+                .HasDatabaseName("IX_Musicians__Email");
+
+
+            // Config de la Many to Many
+            // Permet d'avoir les props de navigation simplifié !
+            builder.HasMany(m => m.MusicStyles)
+                .WithMany(ms => ms.Musicians)
+                .UsingEntity<MusicianLikesStyle>();
+
+            builder.HasMany(m => m.Locations)
+                .WithMany(ml => ml.Musicians)
+                .UsingEntity<MusicianLocation>();
+
+            builder.HasMany(m => m.Instruments)
+                .WithMany(i => i.Musicians)
+                .UsingEntity<MusicianPlaysInstrument>();
+
+            builder.HasMany(m => m.ProjectTypes)
+                .WithMany(p => p.Musicians)
+                .UsingEntity<ProjectType>();
+
         }
     }
 }

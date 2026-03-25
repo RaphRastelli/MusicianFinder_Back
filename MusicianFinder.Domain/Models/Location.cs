@@ -11,7 +11,8 @@ namespace MusicianFinder.Domain.Models
         public string LocationName { get; private set; } = null!;
 
         // Properties from other models
-        public ICollection<MusicianLocation> Musicians { get; set; } = [];
+        public ICollection<MusicianLocation> MM_MusicianLocations { get; set; } = [];
+        public ICollection<Musician> Musicians { get; set; } = [];
 
         // Ctor
         // Vide pour EntityFramework

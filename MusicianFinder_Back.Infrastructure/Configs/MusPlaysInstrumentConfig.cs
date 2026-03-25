@@ -18,6 +18,11 @@ namespace MusicianFinder_Back.Infrastructure.Configs
             builder.HasKey(mi => mi.MusInstrumentId)
                 .HasName("PK_Musician_Instruments");
 
+            // Ajout de clef unique
+            builder.HasIndex(mi => new { mi.MusicianIdFK, mi.InstrumentIdFK })
+                .IsUnique()
+                .HasDatabaseName("UX_Musician_Instrument_Unique");
+
             //
             builder.Property(mi => mi.MusInstrumentId)
                 .ValueGeneratedOnAdd();
@@ -28,12 +33,12 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             //
             builder.HasOne(mi => mi.Musician)
-                .WithMany(m => m.Instruments)
+                .WithMany(m => m.MM_MusicianInstruments)
                 .HasForeignKey(mi => mi.MusicianIdFK)
                 .IsRequired();
 
             builder.HasOne(mi => mi.Instrument)
-                .WithMany(i => i.Musicians)
+                .WithMany(i => i.MM_MusicianInstruments)
                 .HasForeignKey(mi => mi.InstrumentIdFK)
                 .IsRequired();
         }
