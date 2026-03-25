@@ -100,7 +100,7 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             builder.HasMany(m => m.ProjectTypes)
                 .WithMany(p => p.Musicians)
-                .UsingEntity<ProjectType>();
+                .UsingEntity<MusicianProjectType>();
 
         }
     }

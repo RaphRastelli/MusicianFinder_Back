@@ -31,6 +31,11 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             // Clé
             builder.HasKey(l => l.LocationId);
+
+            //
+            builder.Property(l => l.LocationName)
+                .HasMaxLength(40)
+                .IsRequired();
         }
     }
 }

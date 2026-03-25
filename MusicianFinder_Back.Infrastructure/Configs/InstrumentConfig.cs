@@ -47,6 +47,11 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             // Clé
             builder.HasKey(i => i.InstrumentId);
+
+            //
+            builder.Property(i => i.InstrumentName)
+                .HasMaxLength(40)
+                .IsRequired();
         }
     }
 }

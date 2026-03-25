@@ -12,7 +12,9 @@ namespace MusicianFinder_Back.Infrastructure.Configs
         public void Configure(EntityTypeBuilder<ProjectType> builder)
         {
             // Table
-            builder.ToTable("Project_Type").HasData(
+            builder.ToTable("Project_Type");
+
+            builder.HasData(
                 new ProjectType(1, "LongTermeSansGarantie"),
                 new ProjectType(2, "LongTermAvecGarantie"),
                 new ProjectType(3, "PonctuelSansGarantie"),
@@ -22,6 +24,11 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             // Clé
             builder.HasKey(p => p.ProjectTypeId);
+
+            //
+            builder.Property(p => p.TypeName)
+                .HasMaxLength(40)
+                .IsRequired();
         }
 
     }

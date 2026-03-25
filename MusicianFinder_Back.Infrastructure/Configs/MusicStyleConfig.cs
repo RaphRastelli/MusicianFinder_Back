@@ -62,8 +62,15 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             // Faire la config quand meme, non ? Tu penses pas ?
 
+
             // Clé
             builder.HasKey(m => m.StyleId);
+
+            //
+            builder.Property(m => m.StyleName)
+                .HasMaxLength(40)
+                .IsRequired();
+               
         }
     }
 }
