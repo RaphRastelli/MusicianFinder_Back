@@ -67,6 +67,19 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Project_Type",
+                columns: table => new
+                {
+                    ProjectTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Project_Type", x => x.ProjectTypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Musician",
                 columns: table => new
                 {
@@ -82,25 +95,18 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                     BgColor = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, defaultValue: "#FFFFFF"),
                     FontFamily = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, defaultValue: "Arial"),
                     TextColor = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, defaultValue: "#000000"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConversationId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Musician", x => x.Id)
                         .Annotation("SqlServer:Clustered", true);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Project_Type",
-                columns: table => new
-                {
-                    ProjectTypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Project_Type", x => x.ProjectTypeId);
+                    table.ForeignKey(
+                        name: "FK_Musician_Conversations_ConversationId",
+                        column: x => x.ConversationId,
+                        principalTable: "Conversations",
+                        principalColumn: "ConversationId");
                 });
 
             migrationBuilder.CreateTable(
@@ -164,31 +170,25 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     MusInstrumentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MusicianId = table.Column<long>(type: "bigint", nullable: false),
-                    InstrumentId = table.Column<int>(type: "int", nullable: false),
-                    Is_Main_Instrument = table.Column<bool>(type: "bit", nullable: false),
-                    MusicianId1 = table.Column<long>(type: "bigint", nullable: true)
+                    MusicianIdFK = table.Column<long>(type: "bigint", nullable: false),
+                    InstrumentIdFK = table.Column<int>(type: "int", nullable: false),
+                    Is_Main_Instrument = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Musician_Instruments", x => x.MusInstrumentId);
                     table.ForeignKey(
-                        name: "FK_Musician_Instruments_Instrument_InstrumentId",
-                        column: x => x.InstrumentId,
+                        name: "FK_Musician_Instruments_Instrument_InstrumentIdFK",
+                        column: x => x.InstrumentIdFK,
                         principalTable: "Instrument",
                         principalColumn: "InstrumentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Musician_Instruments_Musician_MusicianId",
-                        column: x => x.MusicianId,
+                        name: "FK_Musician_Instruments_Musician_MusicianIdFK",
+                        column: x => x.MusicianIdFK,
                         principalTable: "Musician",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Musician_Instruments_Musician_MusicianId1",
-                        column: x => x.MusicianId1,
-                        principalTable: "Musician",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -197,62 +197,24 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     MusicianLocId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MusicianId = table.Column<long>(type: "bigint", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
-                    MusicianId1 = table.Column<long>(type: "bigint", nullable: true)
+                    MusicianIdFK = table.Column<long>(type: "bigint", nullable: false),
+                    LocationIdFK = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Musician_Locations", x => x.MusicianLocId);
                     table.ForeignKey(
-                        name: "FK_Musician_Locations_Location_LocationId",
-                        column: x => x.LocationId,
+                        name: "FK_Musician_Locations_Location_LocationIdFK",
+                        column: x => x.LocationIdFK,
                         principalTable: "Location",
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Musician_Locations_Musician_MusicianId",
-                        column: x => x.MusicianId,
+                        name: "FK_Musician_Locations_Musician_MusicianIdFK",
+                        column: x => x.MusicianIdFK,
                         principalTable: "Musician",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Musician_Locations_Musician_MusicianId1",
-                        column: x => x.MusicianId1,
-                        principalTable: "Musician",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Musician_Styles",
-                columns: table => new
-                {
-                    MusicianStyleId = table.Column<int>(type: "int", nullable: false),
-                    MusicianId = table.Column<long>(type: "bigint", nullable: false),
-                    StyleId = table.Column<int>(type: "int", nullable: false),
-                    Is_Main_Style = table.Column<bool>(type: "bit", nullable: false),
-                    MusicianId1 = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Musician_Styles", x => x.MusicianStyleId);
-                    table.ForeignKey(
-                        name: "FK_Musician_Styles_Music_Style_MusicianStyleId",
-                        column: x => x.MusicianStyleId,
-                        principalTable: "Music_Style",
-                        principalColumn: "StyleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Musician_Styles_Musician_MusicianId",
-                        column: x => x.MusicianId,
-                        principalTable: "Musician",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Musician_Styles_Musician_MusicianId1",
-                        column: x => x.MusicianId1,
-                        principalTable: "Musician",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -261,29 +223,50 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 {
                     MusProjectId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MusicianId = table.Column<long>(type: "bigint", nullable: false),
-                    ProjectTypeId = table.Column<int>(type: "int", nullable: false),
-                    MusicianId1 = table.Column<long>(type: "bigint", nullable: true)
+                    MusicianIdFK = table.Column<long>(type: "bigint", nullable: false),
+                    ProjectTypeIdFK = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Musician_Project_Types", x => x.MusProjectId);
                     table.ForeignKey(
-                        name: "FK_Musician_Project_Types_Musician_MusicianId",
-                        column: x => x.MusicianId,
+                        name: "FK_Musician_Project_Types_Musician_MusicianIdFK",
+                        column: x => x.MusicianIdFK,
                         principalTable: "Musician",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Musician_Project_Types_Musician_MusicianId1",
-                        column: x => x.MusicianId1,
-                        principalTable: "Musician",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Musician_Project_Types_Project_Type_ProjectTypeId",
-                        column: x => x.ProjectTypeId,
+                        name: "FK_Musician_Project_Types_Project_Type_ProjectTypeIdFK",
+                        column: x => x.ProjectTypeIdFK,
                         principalTable: "Project_Type",
                         principalColumn: "ProjectTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Musician_Styles",
+                columns: table => new
+                {
+                    MusicianStyleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MusicianIdFK = table.Column<long>(type: "bigint", nullable: false),
+                    StyleIdFK = table.Column<int>(type: "int", nullable: false),
+                    Is_Main_Style = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Musician_Styles", x => x.MusicianStyleId);
+                    table.ForeignKey(
+                        name: "FK_Musician_Styles_Music_Style_StyleIdFK",
+                        column: x => x.StyleIdFK,
+                        principalTable: "Music_Style",
+                        principalColumn: "StyleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Musician_Styles_Musician_MusicianIdFK",
+                        column: x => x.MusicianIdFK,
+                        principalTable: "Musician",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -413,59 +396,49 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Instruments_InstrumentId",
+                name: "IX_Musician_ConversationId",
+                table: "Musician",
+                column: "ConversationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Musician_Instruments_InstrumentIdFK",
                 table: "Musician_Instruments",
-                column: "InstrumentId");
+                column: "InstrumentIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Instruments_MusicianId",
+                name: "IX_Musician_Instruments_MusicianIdFK",
                 table: "Musician_Instruments",
-                column: "MusicianId");
+                column: "MusicianIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Instruments_MusicianId1",
-                table: "Musician_Instruments",
-                column: "MusicianId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musician_Locations_LocationId",
+                name: "IX_Musician_Locations_LocationIdFK",
                 table: "Musician_Locations",
-                column: "LocationId");
+                column: "LocationIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Locations_MusicianId",
+                name: "IX_Musician_Locations_MusicianIdFK",
                 table: "Musician_Locations",
-                column: "MusicianId");
+                column: "MusicianIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Locations_MusicianId1",
-                table: "Musician_Locations",
-                column: "MusicianId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musician_Project_Types_MusicianId",
+                name: "IX_Musician_Project_Types_MusicianIdFK",
                 table: "Musician_Project_Types",
-                column: "MusicianId");
+                column: "MusicianIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Project_Types_MusicianId1",
+                name: "IX_Musician_Project_Types_ProjectTypeIdFK",
                 table: "Musician_Project_Types",
-                column: "MusicianId1");
+                column: "ProjectTypeIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Project_Types_ProjectTypeId",
-                table: "Musician_Project_Types",
-                column: "ProjectTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musician_Styles_MusicianId",
+                name: "IX_Musician_Styles_MusicianIdFK",
                 table: "Musician_Styles",
-                column: "MusicianId");
+                column: "MusicianIdFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musician_Styles_MusicianId1",
+                name: "IX_Musician_Styles_StyleIdFK",
                 table: "Musician_Styles",
-                column: "MusicianId1");
+                column: "StyleIdFK");
         }
 
         /// <inheritdoc />
@@ -490,9 +463,6 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
                 name: "Musician_Styles");
 
             migrationBuilder.DropTable(
-                name: "Conversations");
-
-            migrationBuilder.DropTable(
                 name: "Instrument");
 
             migrationBuilder.DropTable(
@@ -506,6 +476,9 @@ namespace MusicianFinder_Back.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Musician");
+
+            migrationBuilder.DropTable(
+                name: "Conversations");
         }
     }
 }
