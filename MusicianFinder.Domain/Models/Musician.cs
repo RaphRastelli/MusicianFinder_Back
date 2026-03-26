@@ -38,7 +38,7 @@ namespace MusicianFinder.Domain.Models
         public Musician(string username, string email, string? passwordhash = null)
         {
             if (username is null || username.Trim().Length < 4 || username.Trim().Length > 50) 
-                throw new ArgumentException("Le username doit contenir entre 4 et 50 caractères.", nameof(username));
+                throw new ArgumentException("Le nom d'utilisateur doit contenir entre 4 et 50 caractères.", nameof(username));
 
             if (string.IsNullOrWhiteSpace(email) || !MailAddress.TryCreate(email, out _))
                 throw new ArgumentException("E-mail invalide.", nameof(email));

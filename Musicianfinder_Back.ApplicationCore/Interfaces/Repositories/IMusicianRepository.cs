@@ -11,5 +11,6 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
         Musician Insert(Musician data);
         string? GetHashPwd(string email);
         Musician? GetByEmail(string email);
+
     }
 }
