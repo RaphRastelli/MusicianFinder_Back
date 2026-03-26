@@ -42,26 +42,23 @@ namespace MusicianFinder_Back.Infrastructure.Configs
                 new MusicStyle(3, "Rock / Rock alternatif"),
                 new MusicStyle(4, "Metal"),
                 new MusicStyle(5, "Punk"),
-                new MusicStyle(6, "Folk / Acoustique"),
+                new MusicStyle(6, "Folk"),
                 new MusicStyle(7, "Jazz"),
                 new MusicStyle(8, "Blues"),
                 new MusicStyle(9, "Soul / R&B / Funk"),
                 new MusicStyle(10, "Rap / Hip‑Hop / Slam"),
-                new MusicStyle(11, "Electro / EDM / Ambient"),
+                new MusicStyle(11, "Electro / EDM"),
                 new MusicStyle(12, "Classique / Contemporain"),
                 new MusicStyle(13, "Baroque / Ancien"),
-                new MusicStyle(14, "Chorale / Voix d'ensemble"),
+                new MusicStyle(14, "Chorale / Ensemble vocal"),
                 new MusicStyle(15, "Trad / World"),
                 new MusicStyle(16, "Reggae / Ska"),
                 new MusicStyle(17, "Country"),
                 new MusicStyle(18, "Jeune Public"),
                 new MusicStyle(19, "Covers"),
-                new MusicStyle(20, "Expérimental / Avant‑garde"),
+                new MusicStyle(20, "Expérimental"),
                 new MusicStyle(21, "Fanfare")
             );
-
-            // Faire la config quand meme, non ? Tu penses pas ?
-
 
             // Clé
             builder.HasKey(m => m.StyleId);
@@ -70,7 +67,6 @@ namespace MusicianFinder_Back.Infrastructure.Configs
             builder.Property(m => m.StyleName)
                 .HasMaxLength(40)
                 .IsRequired();
-               
         }
     }
 }
