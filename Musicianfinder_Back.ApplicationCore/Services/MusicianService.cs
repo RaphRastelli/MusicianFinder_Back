@@ -4,6 +4,7 @@ using Musicianfinder_Back.ApplicationCore.Interfaces.Services;
 using Soenneker.Hashing.Argon2;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Musicianfinder_Back.ApplicationCore.Services
@@ -18,16 +19,34 @@ namespace Musicianfinder_Back.ApplicationCore.Services
         }
 
 
-        public Musician Login(string email, string password)
+        public async Task<Musician> Login(string email, string password)
         {
-            throw new NotImplementedException();
+            string? hashPwd = _musicianRepository.GetHashPwd(email);
+
+            if (hashPwd is null) 
+            { 
+                throw new Exception("Le compte n'existe pas.");
+            }
+
+            bool isValid = Argon2HashingUtil.Verify(password, hashPwd).Result;
+            if (!isValid)
+            {
+                // Le mot de passe est invalide !
+                throw new Exception("Les informations d'identification sont invalides.");
+            }
+
+            Musician? musician = _musicianRepository.GetByEmail(email);
+            if (musician is null)
+                throw new Exception("Les informations d'identification sont invalides.");
+
+            return musician;
         }
 
-        public Musician Register(string username, string email, string password)
+        public async Task<Musician> Register(string username, string email, string password)
         {
             if (string.IsNullOrEmpty(password))
             { 
-                throw new ArgumentNullException("Password manquant");
+                throw new ArgumentNullException("Password manquant.");
             }
 
             if (string.IsNullOrEmpty(username)) 
@@ -52,7 +71,9 @@ namespace Musicianfinder_Back.ApplicationCore.Services
             // Création du compte dans DB via repository
             Musician musicianInserted = _musicianRepository.Insert(musicianToInsert);
 
-            // Envoi du compte créer
+            // TODO : envoi du mail de bienvenue (mailer)
+
+            // Envoi du compte créé
             return musicianInserted;
         }
     }

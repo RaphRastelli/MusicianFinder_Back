@@ -14,13 +14,14 @@ namespace MusicianFinder_Back.WebAPI.Dto.Request
     public class AuthRegisterRequestDto
     {
         [Required]
-        [EmailAddress]
-        [MaxLength(320)]
-        public required string Email { get; set; }
-
         [MinLength(4)]
         [MaxLength(50)]
         public required string? Username { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [MaxLength(320)]
+        public required string Email { get; set; }
 
         [Required]
         [MinLength(8)]

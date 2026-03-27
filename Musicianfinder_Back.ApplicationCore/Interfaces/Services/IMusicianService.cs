@@ -4,7 +4,7 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
 {
     public interface IMusicianService
     {
-        Musician Register(string username, string email, string password);
-        Musician Login(string email, string password);
+        Task<Musician> Login(string email, string password);
+        Task<Musician> Register(string username, string email, string password);
     }
 }

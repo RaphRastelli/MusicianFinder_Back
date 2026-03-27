@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MusicianFinder.Domain.Models;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Services;
 using MusicianFinder_Back.WebAPI.Dto.Request;
 using MusicianFinder_Back.WebAPI.Dto.Response;
 using MusicianFinder_Back.WebAPI.Token;
+using System.Data;
 
 namespace MusicianFinder_Back.WebAPI.Controllers
 {
@@ -30,12 +32,26 @@ namespace MusicianFinder_Back.WebAPI.Controllers
                 dto.Password
             );
 
-            _musicianService.Register(musician);
-
-            return Ok(new AuthResponseDto()
+            string token = _tokenTool.Generate(new TokenTool.Data()
             {
-                Token = _tokenTool.Generate(musician.Id, musician.Role)
+                MusicianId = musician.Id,
+                Role = musician.Role.ToString()
+            });
+
+            _musicianService.Register(dto.Username, dto.Email, dto.Password);
+
+            return Ok(new
+            {
+                Message = "Votre compte a bien été créé !",
+                Token = token
             });
         }
+
+        [HttpPost("Login")]
+        /*public IActionResult Login([FromBody] AuthLoginRequestDto dto)
+        {
+            
+        }*/
+
     }
 }
