@@ -73,7 +73,7 @@ namespace MusicianFinder_Back.Infrastructure.Configs
                 .IsRequired();
 
             builder.Property(m => m.TextColor)
-                .HasDefaultValue("#000000")
+                .HasDefaultValue("#49444e")
                 .HasMaxLength(10)
                 .IsUnicode()
                 .IsRequired();

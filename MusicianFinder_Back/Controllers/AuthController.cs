@@ -47,11 +47,11 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             });
         }
 
-        [HttpPost("Login")]
+        //[HttpPost("Login")]
         /*public IActionResult Login([FromBody] AuthLoginRequestDto dto)
         {
-            
-        }*/
 
+        }*/
     }
+
 }
