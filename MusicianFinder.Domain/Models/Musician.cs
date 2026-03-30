@@ -16,8 +16,8 @@ namespace MusicianFinder.Domain.Models
         public AbilityLevelEnum Ability { get; private set; }
         public AvailabilityLevelEnum Availability { get; private set; }
         public string BgColor { get; private set; } = "#FFFFFF";
-        public string FontFamily { get; private set; } = "Arial";
-        public string TextColor { get; private set; } = "#49444e";
+        public string FontFamily { get; private set; } = "SourceSans3";
+        public string TextColor { get; private set; } = "#052d3d";
         public DateTime CreatedAt { get; private set; }
 
         // Properties from other models

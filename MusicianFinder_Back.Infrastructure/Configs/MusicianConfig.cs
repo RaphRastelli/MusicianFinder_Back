@@ -67,13 +67,13 @@ namespace MusicianFinder_Back.Infrastructure.Configs
                 .IsRequired();
 
             builder.Property(m => m.FontFamily)
-                .HasDefaultValue("Arial")
+                .HasDefaultValue("SourceSans3")
                 .HasMaxLength(100)
                 .IsUnicode()
                 .IsRequired();
 
             builder.Property(m => m.TextColor)
-                .HasDefaultValue("#49444e")
+                .HasDefaultValue("#052d3d")
                 .HasMaxLength(10)
                 .IsUnicode()
                 .IsRequired();
