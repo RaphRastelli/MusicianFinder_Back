@@ -19,7 +19,7 @@ namespace Musicianfinder_Back.ApplicationCore.Services
         }
 
 
-        public async Task<Musician> Login(string email, string password)
+        public Musician Login(string email, string password)
         {
             string? hashPwd = _musicianRepository.GetHashPwd(email);
 
@@ -42,7 +42,7 @@ namespace Musicianfinder_Back.ApplicationCore.Services
             return musician;
         }
 
-        public async Task<Musician> Register(string username, string email, string password)
+        public Musician Register(string username, string email, string password)
         {
             if (string.IsNullOrEmpty(password))
             { 

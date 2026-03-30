@@ -14,7 +14,7 @@ namespace MusicianFinder_Back.WebAPI.Dto.Request
     public class AuthRegisterRequestDto
     {
         [Required]
-        [MinLength(4)]
+        [MinLength(3)]
         [MaxLength(50)]
         public required string? Username { get; set; }
 

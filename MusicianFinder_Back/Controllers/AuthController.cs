@@ -47,11 +47,22 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             });
         }
 
-        //[HttpPost("Login")]
-        /*public IActionResult Login([FromBody] AuthLoginRequestDto dto)
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] AuthLoginRequestDto dto)
         {
+            var musician = _musicianService.Login(dto.Email, dto.Password);
 
-        }*/
+            string token = _tokenTool.Generate(new TokenTool.Data()
+            {
+                MusicianId = musician.Id,
+                Role = musician.Role.ToString()
+            });
+
+            return Ok(new {
+                Message = "Vous êtes connecté !",
+                Token = token
+            });
+        }
     }
 
 }
