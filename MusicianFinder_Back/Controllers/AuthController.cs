@@ -24,33 +24,35 @@ namespace MusicianFinder_Back.WebAPI.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] AuthRegisterRequestDto dto)
+        public async Task<IActionResult> Register([FromBody] AuthRegisterRequestDto dto)
         {
-            Musician musician = new Musician(
-                dto.Username, 
+            // 1. Le service gère le hachage et l'insertion — il retourne le Musician inséré
+            Musician musician = await _musicianService.Register(
+                dto.Username,
                 dto.Email,
                 dto.Password
             );
 
+            // 2. Le token est généré APRÈS l'insertion — on a le vrai Id
             string token = _tokenTool.Generate(new TokenTool.Data()
             {
                 MusicianId = musician.Id,
                 Role = musician.Role.ToString()
             });
 
-            _musicianService.Register(dto.Username, dto.Email, dto.Password);
-
+            // 3. La réponse correspond exactement à ce qu'attend le frontend
             return Ok(new
             {
-                Message = "Votre compte a bien été créé !",
-                Token = token
+                token = token,
+                username = musician.Username,
+                role = musician.Role.ToString()
             });
         }
 
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] AuthLoginRequestDto dto)
+        public async Task<IActionResult> Login([FromBody] AuthLoginRequestDto dto)
         {
-            var musician = _musicianService.Login(dto.Email, dto.Password);
+            var musician = await _musicianService.Login(dto.Email, dto.Password);
 
             string token = _tokenTool.Generate(new TokenTool.Data()
             {
@@ -59,8 +61,9 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             });
 
             return Ok(new {
-                Message = "Vous êtes connecté !",
-                Token = token
+                token = token,
+                username = musician.Username,
+                role = musician.Role.ToString()
             });
         }
     }

@@ -6,6 +6,7 @@ using Musicianfinder_Back.ApplicationCore.Interfaces.Services;
 using Musicianfinder_Back.ApplicationCore.Services;
 using MusicianFinder_Back.Infrastructure;
 using MusicianFinder_Back.Infrastructure.Repositories;
+using MusicianFinder_Back.WebAPI.Token;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -26,6 +27,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+// - Token
+builder.Services.AddScoped<TokenTool>();
 
 
 builder.Services.AddControllers();
@@ -56,8 +60,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// CORS pour autoriser le frontend à faire des requêtes vers le backend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173", "http://localhost:5174")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // App-----------------
 var app = builder.Build();
+
+// Appliquer CORS — doit être AVANT UseAuthentication et UseAuthorization
+app.UseCors("AllowFrontend");
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

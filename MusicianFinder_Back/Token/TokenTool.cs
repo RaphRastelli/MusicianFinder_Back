@@ -43,7 +43,7 @@ namespace MusicianFinder_Back.WebAPI.Token
             JwtSecurityToken token = new JwtSecurityToken(
                 issuer: _config["Token:Issuer"],         // Identité qui émet le token (Token:Issuer est défini dans appsettings.json)
                 audience: _config["Token:Audience"],     // Context d'utilisation du token (validité dans le scénario)
-                expires: DateTime.Now.AddMinutes(_config.GetValue<int>("Token:Audience")),   // Date d'expiration (60 min, cfr. appsettings.json)
+                expires: DateTime.Now.AddMinutes(_config.GetValue<int>("Token:ExpiresInMinutes")),   // Date d'expiration (60 min, cfr. appsettings.json)
                 claims: claims,                          // Objet de sécurité qui contient les données à transmettre
                 signingCredentials: signingCredentials   // Signature
             );
