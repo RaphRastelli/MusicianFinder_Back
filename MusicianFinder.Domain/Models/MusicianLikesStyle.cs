@@ -18,5 +18,19 @@ namespace MusicianFinder.Domain.Models
         // Ctor
         // Vide pour EntityFramework
         private MusicianLikesStyle() { }
+
+        // ── Static Factory Method ─────────────────────────────────────────
+        public static MusicianLikesStyle Create(
+            long musicianId,
+            int styleId,
+            bool isMainStyle)
+        {
+            var entity = new MusicianLikesStyle();
+
+            entity.MusicianIdFK = musicianId;
+            entity.StyleIdFK = styleId;
+            entity.IsMainStyle = isMainStyle;
+            return entity;
+        }
     }
 }

@@ -1,10 +1,19 @@
-﻿using MusicianFinder.Domain.Models;
+﻿using MusicianFinder.Domain.Enums;
+using MusicianFinder.Domain.Models;
 
 namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
 {
     public interface IMusicianService
     {
-        Musician Login(string email, string password);
-        Musician Register(string username, string email, string password);
+        Task<Musician> Login(string email, string password);
+        Task<Musician> Register(string username, string email, string password);
+
+        Task SaveInstrumentPrincipal(long musicianId, int instrumentId);
+        Task SaveInstrumentsSecondaires(long musicianId, List<int> instrumentIds);
+        Task SaveNiveau(long musicianId, AbilityLevelEnum ability);
+        Task SaveDisponibilite(long musicianId, AvailabilityLevelEnum availability);
+        Task SaveLocations(long musicianId, List<int> locationIds);
+        Task SaveStylePrincipal(long musicianId, int styleId);
+        Task SaveStylesSecondaires(long musicianId, List<int> styleIds);
     }
 }

@@ -20,7 +20,7 @@ namespace MusicianFinder_Back.Infrastructure.Configs
                 .HasName("PK_Musician")
                 .IsClustered();
 
-            // Colonnes (TODO à compléter)
+            // Colonnes
             builder.Property(m => m.Id)
                 .ValueGeneratedOnAdd();
 
@@ -41,40 +41,36 @@ namespace MusicianFinder_Back.Infrastructure.Configs
 
             builder.Property(m => m.Description)
                 .HasMaxLength(5000)
-                .IsUnicode();
+                .IsUnicode()
+                .IsRequired(false);
 
             builder.Property(m => m.Role)
                 .HasConversion<string>()
                 .HasDefaultValue(MusicianRoleEnum.User)
                 .HasMaxLength(10)
-                .HasSentinel(0)
                 .IsRequired();
 
             builder.Property(m => m.Ability)
-                .HasConversion<string>()
-                .HasMaxLength(15)
-                .HasSentinel(0);
+                .HasConversion<int?>()
+                .IsRequired(false);
 
             builder.Property(m => m.Availability)
-                .HasConversion<string>()
-                .HasMaxLength(25)
-                .HasSentinel(0);
+                .HasConversion<int?>()
+                .IsRequired(false);
 
             builder.Property(m => m.BgColor)
                 .HasDefaultValue("#FFFFFF")
-                .HasMaxLength(10)
-                .IsUnicode()
+                .HasMaxLength(7)
                 .IsRequired();
 
             builder.Property(m => m.FontFamily)
                 .HasDefaultValue("SourceSans3")
-                .HasMaxLength(100)
-                .IsUnicode()
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(m => m.TextColor)
                 .HasDefaultValue("#052d3d")
-                .HasMaxLength(10)
+                .HasMaxLength(7)
                 .IsUnicode()
                 .IsRequired();
 

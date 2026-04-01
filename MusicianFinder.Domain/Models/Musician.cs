@@ -11,10 +11,10 @@ namespace MusicianFinder.Domain.Models
         public string Username { get; private set; } = null!;
         public string PasswordHash { get; private set; } = null!;
         public string Email { get; private set; } = null!;
-        public string Description { get; private set; } = null!;
+        public string? Description { get; private set; }
         public MusicianRoleEnum Role { get; private set; }
-        public AbilityLevelEnum Ability { get; private set; }
-        public AvailabilityLevelEnum Availability { get; private set; }
+        public AbilityLevelEnum? Ability { get; private set; }
+        public AvailabilityLevelEnum? Availability { get; private set; }
         public string BgColor { get; private set; } = "#FFFFFF";
         public string FontFamily { get; private set; } = "SourceSans3";
         public string TextColor { get; private set; } = "#052d3d";
@@ -32,7 +32,7 @@ namespace MusicianFinder.Domain.Models
 
         // Ctor
         // Vide pour EntityFramework
-        private Musician() { }
+        protected Musician() { }
 
         // ctor pour base de la création d'un Musician (avec validation email et username entre 4 et 50 caractères)
         public Musician(string username, string email, string? passwordhash = null)
@@ -45,6 +45,8 @@ namespace MusicianFinder.Domain.Models
 
             Username = username.Trim();
             Email = email.Trim().ToLower();
+            PasswordHash = passwordhash ?? string.Empty;
+            Role = MusicianRoleEnum.User;  // toujours User à la création
             CreatedAt = DateTime.Now;
         }
 
@@ -66,8 +68,16 @@ namespace MusicianFinder.Domain.Models
             Role = role;
         }
 
-        // TODO ctor pour update
+        // Public static methods pour update
+        public void SetAbility(AbilityLevelEnum ability)
+        {
+            Ability = ability;
+        }
 
+        public void SetAvailability(AvailabilityLevelEnum availability)
+        {
+            Availability = availability;
+        }
 
 
     }
