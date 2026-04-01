@@ -28,5 +28,8 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
         Task SaveStylePrincipalAsync(long musicianId, int styleId);
         Task SaveStylesSecondairesAsync(long musicianId, List<int> styleIds);
 
+        // ── Description ───────────────────────────────────────────────────
+        Task SaveDescriptionAsync(long musicianId, string? description);
+
     }
 }

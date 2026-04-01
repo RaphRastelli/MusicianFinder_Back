@@ -85,5 +85,13 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             await _musicianService.SaveStylesSecondaires(musicianId, dto.StyleIds);
             return Ok();
         }
+
+        [HttpPatch("me/description")]
+        public async Task<IActionResult> SaveDescription([FromBody] DescriptionDto dto)
+        {
+            var musicianId = GetMusicianIdFromToken();
+            await _musicianService.SaveDescription(musicianId, dto.Description);
+            return Ok();
+        }
     }
 }

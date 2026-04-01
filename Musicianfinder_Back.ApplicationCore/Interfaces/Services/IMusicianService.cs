@@ -15,5 +15,6 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
         Task SaveLocations(long musicianId, List<int> locationIds);
         Task SaveStylePrincipal(long musicianId, int styleId);
         Task SaveStylesSecondaires(long musicianId, List<int> styleIds);
+        Task SaveDescription(long musicianId, string? description);
     }
 }

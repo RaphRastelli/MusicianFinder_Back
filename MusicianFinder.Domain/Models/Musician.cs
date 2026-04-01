@@ -79,6 +79,10 @@ namespace MusicianFinder.Domain.Models
             Availability = availability;
         }
 
+        public void SetDescription(string? description)
+        {
+            Description = description;
+        }
 
     }
 }

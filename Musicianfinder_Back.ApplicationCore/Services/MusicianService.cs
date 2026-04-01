@@ -121,5 +121,10 @@ namespace Musicianfinder_Back.ApplicationCore.Services
         {
             await _musicianRepository.SaveStylesSecondairesAsync(musicianId, styleIds);
         }
+
+        public async Task SaveDescription(long musicianId, string? description)
+        {
+            await _musicianRepository.SaveDescriptionAsync(musicianId, description);
+        }
     }
 }

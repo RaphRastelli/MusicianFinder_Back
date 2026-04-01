@@ -145,5 +145,15 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
 
             await _DbContext.SaveChangesAsync();
         }
+
+        // ── Description ────────────────────────────────────────────────────
+        public async Task SaveDescriptionAsync(long musicianId, string? description)
+        {
+            var musician = await _DbContext.Musicians.FindAsync(musicianId)
+                ?? throw new Exception("Musicien introuvable.");
+
+            musician.SetDescription(description);
+            await _DbContext.SaveChangesAsync();
+        }
     }
 }
