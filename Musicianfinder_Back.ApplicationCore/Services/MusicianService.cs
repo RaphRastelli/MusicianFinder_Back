@@ -95,6 +95,14 @@ namespace Musicianfinder_Back.ApplicationCore.Services
             await _musicianRepository.SaveNiveauAsync(musicianId, ability);
         }
 
+        public async Task SaveProjectTypes(long musicianId, List<int> projectTypeIds)
+        {
+            if (projectTypeIds.Count == 0)
+                throw new ArgumentException("Au moins un type de projet est requis.");
+
+            await _musicianRepository.SaveProjectTypesAsync(musicianId, projectTypeIds);
+        }
+
         public async Task SaveDisponibilite(long musicianId, AvailabilityLevelEnum availability)
         {
             await _musicianRepository.SaveDisponibiliteAsync(musicianId, availability);

@@ -115,6 +115,25 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
             await _DbContext.SaveChangesAsync();
         }
 
+        // ── Type de projets ─────────────────────────────────────────────────────────────
+        public async Task SaveProjectTypesAsync(long musicianId, List<int> projectTypeIds)
+        {
+            // Supprime les types existants
+            var existing = _DbContext.MusicianProjectTypes
+                .Where(pt => pt.MusicianIdFK == musicianId);
+            _DbContext.MusicianProjectTypes.RemoveRange(existing);
+
+            // Ajoute les nouveaux via le Static Factory Method
+            foreach (var projectTypeId in projectTypeIds)
+            {
+                _DbContext.MusicianProjectTypes.Add(
+                    MusicianProjectType.Create(musicianId, projectTypeId)
+                );
+            }
+
+            await _DbContext.SaveChangesAsync();
+        }
+
         // ── Style principal ───────────────────────────────────────────────────────
         public async Task SaveStylePrincipalAsync(long musicianId, int styleId)
         {

@@ -53,6 +53,14 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPut("me/project-types")]
+        public async Task<IActionResult> SaveProjectTypes([FromBody] ProjectTypesDto dto)
+        {
+            var musicianId = GetMusicianIdFromToken();
+            await _musicianService.SaveProjectTypes(musicianId, dto.ProjectTypeIds);
+            return Ok();
+        }
+
         [HttpPatch("me/disponibilite")]
         public async Task<IActionResult> SaveDisponibilite([FromBody] DisponibiliteDto dto)
         {

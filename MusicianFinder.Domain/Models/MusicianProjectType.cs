@@ -17,5 +17,14 @@ namespace MusicianFinder.Domain.Models
         // Ctor
         // Vide pour EntityFramework
         private MusicianProjectType() { }
+
+        // Static Factory Method
+        public static MusicianProjectType Create(long musicianId, int projectTypeId)
+        {
+            var entity = new MusicianProjectType();
+            entity.MusicianIdFK = musicianId;
+            entity.ProjectTypeIdFK = projectTypeId;
+            return entity;
+        }
     }
 }

@@ -24,6 +24,9 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
         // ── Locations ─────────────────────────────────────────────────────
         Task SaveLocationsAsync(long musicianId, List<int> locationIds);
 
+        // ── ProjectType ───────────────────────────────────────────────────
+        Task SaveProjectTypesAsync(long musicianId, List<int> projectTypeIds);
+
         // ── Styles ────────────────────────────────────────────────────────
         Task SaveStylePrincipalAsync(long musicianId, int styleId);
         Task SaveStylesSecondairesAsync(long musicianId, List<int> styleIds);

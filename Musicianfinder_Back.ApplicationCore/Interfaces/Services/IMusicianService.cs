@@ -11,6 +11,7 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
         Task SaveInstrumentPrincipal(long musicianId, int instrumentId);
         Task SaveInstrumentsSecondaires(long musicianId, List<int> instrumentIds);
         Task SaveNiveau(long musicianId, AbilityLevelEnum ability);
+        Task SaveProjectTypes(long musicianId, List<int> projectTypeIds);
         Task SaveDisponibilite(long musicianId, AvailabilityLevelEnum availability);
         Task SaveLocations(long musicianId, List<int> locationIds);
         Task SaveStylePrincipal(long musicianId, int styleId);
