@@ -1,5 +1,6 @@
 ﻿using MusicianFinder.Domain.Enums;
 using MusicianFinder.Domain.Models;
+using Musicianfinder_Back.ApplicationCore.DTOs;
 
 namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
 {
@@ -17,5 +18,6 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
         Task SaveStylePrincipal(long musicianId, int styleId);
         Task SaveStylesSecondaires(long musicianId, List<int> styleIds);
         Task SaveDescription(long musicianId, string? description);
+        Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id);
     }
 }

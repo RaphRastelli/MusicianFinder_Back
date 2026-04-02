@@ -1,5 +1,6 @@
 ﻿using MusicianFinder.Domain.Enums;
 using MusicianFinder.Domain.Models;
+using Musicianfinder_Back.ApplicationCore.DTOs;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Repositories;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Services;
 using Soenneker.Hashing.Argon2;
@@ -133,6 +134,11 @@ namespace Musicianfinder_Back.ApplicationCore.Services
         public async Task SaveDescription(long musicianId, string? description)
         {
             await _musicianRepository.SaveDescriptionAsync(musicianId, description);
+        }
+
+        public async Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id)
+        {
+            return await _musicianRepository.GetProfileByIdAsync(id);
         }
     }
 }

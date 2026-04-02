@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicianFinder.Domain.Enums;
 using MusicianFinder.Domain.Models;
+using Musicianfinder_Back.ApplicationCore.DTOs;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -173,6 +174,94 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
 
             musician.SetDescription(description);
             await _DbContext.SaveChangesAsync();
+        }
+
+        // ── profil retourné ────────────────────────────────────────────────────
+        public async Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id)
+        {
+            // On charge le musicien avec toutes ses relations en une seule requête
+            var m = await _DbContext.Musicians
+                .Include(m => m.MM_MusicianInstruments)
+                    .ThenInclude(p => p.Instrument)
+                .Include(m => m.MM_MusicianMusicStyles)
+                    .ThenInclude(s => s.MusicianStyle)
+                .Include(m => m.MM_MusicianLocations)
+                    .ThenInclude(l => l.Location)
+                .Include(m => m.MM_MusicianProjectTypes)
+                    .ThenInclude(pt => pt.ProjectType)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (m is null) return null;
+
+            // Conversion des enums en libellés lisibles
+            // Les valeurs correspondent à vos enums AbilityLevelEnum et AvailabilityLevelEnum
+            var abilityLabel = m.Ability switch
+            {
+                AbilityLevelEnum.Debutant => "Débutant",
+                AbilityLevelEnum.Intermediaire => "Intermédiaire",
+                AbilityLevelEnum.Confirme => "Confirmé",
+                AbilityLevelEnum.Professionnnel => "Professionnel",
+                _ => null
+            };
+
+            var availabilityLabel = m.Availability switch
+            {
+                AvailabilityLevelEnum.UneFoisSemaineOuPlus => "Une fois par semaine ou plus",
+                AvailabilityLevelEnum.DeuxFoisMoisOuPlus => "Deux fois par mois ou plus",
+                AvailabilityLevelEnum.UneFoisMoisOuMoins => "Une fois par mois ou moins",
+                AvailabilityLevelEnum.Occasionnellement => "Occasionnellement",
+                _ => null
+            };
+
+            return new MusicianProfileAppDto
+            {
+                Username = m.Username,
+
+                // Instrument principal — celui où IsMainInstrument = true
+                InstrumentPrincipal = m.MM_MusicianInstruments
+                    .FirstOrDefault(p => p.IsMainInstrument)
+                    ?.Instrument.InstrumentName,
+
+                Ability = abilityLabel,
+
+                // Instruments secondaires — ceux où IsMainInstrument = false
+                InstrumentsSecondaires = m.MM_MusicianInstruments
+                    .Where(p => !p.IsMainInstrument)
+                    .Select(p => p.Instrument.InstrumentName)
+                    .ToList(),
+
+                // Style principal — celui où IsMainStyle = true
+                StylePrincipal = m.MM_MusicianMusicStyles
+                    .FirstOrDefault(s => s.IsMainStyle)
+                    ?.MusicianStyle.StyleName,
+
+                // Styles secondaires — ceux où IsMainStyle = false
+                StylesSecondaires = m.MM_MusicianMusicStyles
+                    .Where(s => !s.IsMainStyle)
+                    .Select(s => s.MusicianStyle.StyleName)
+                    .ToList(),
+
+                Locations = m.MM_MusicianLocations
+                    .Select(l => l.Location.LocationName)
+                    .ToList(),
+
+                // ← Conversion des ProjectTypes
+                ProjectTypes = m.MM_MusicianProjectTypes
+            .Select(pt => pt.ProjectType.TypeName switch
+            {
+                "LongTermeSansGarantie" => "Projet à long terme sans garantie financière",
+                "LongTermAvecGarantie" => "Projet à long terme avec garantie financière",
+                "PonctuelSansGarantie" => "Projet ponctuel sans garantie financière",
+                "PonctuelAvecGarantie" => "Projet ponctuel avec garantie financière",
+                "Cours" => "Je donne des cours de mon instrument",
+                _ => pt.ProjectType.TypeName
+            })
+            .ToList(),
+
+                Availability = availabilityLabel,
+                Description = m.Description,
+                Email = m.Email
+            };
         }
     }
 }

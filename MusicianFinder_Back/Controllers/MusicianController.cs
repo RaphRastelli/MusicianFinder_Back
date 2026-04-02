@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MusicianFinder.Domain.Enums;
 using Musicianfinder_Back.ApplicationCore.Interfaces.Services;
 using MusicianFinder_Back.WebAPI.Dto.Musician;
+using MusicianFinder_Back.WebAPI.Dto.Response;
 using System.Security.Claims;
 
 namespace MusicianFinder_Back.WebAPI.Controllers
@@ -100,6 +101,34 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             var musicianId = GetMusicianIdFromToken();
             await _musicianService.SaveDescription(musicianId, dto.Description);
             return Ok();
+        }
+
+        // Accessible à tous — pas de [Authorize]
+        // Un visiteur non connecté peut consulter un profil
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfile(long id)
+        {
+            var profile = await _musicianService.GetProfileByIdAsync(id);
+
+            if (profile is null)
+                return NotFound();
+
+            // Conversion DTO Application → DTO Presentation
+            return Ok(new MusicianProfileDto
+            {
+                Username = profile.Username,
+                InstrumentPrincipal = profile.InstrumentPrincipal,
+                Ability = profile.Ability,
+                InstrumentsSecondaires = profile.InstrumentsSecondaires,
+                StylePrincipal = profile.StylePrincipal,
+                StylesSecondaires = profile.StylesSecondaires,
+                Locations = profile.Locations,
+                ProjectTypes = profile.ProjectTypes,
+                Availability = profile.Availability,
+                Description = profile.Description,
+                Email = profile.Email
+            });
         }
     }
 }

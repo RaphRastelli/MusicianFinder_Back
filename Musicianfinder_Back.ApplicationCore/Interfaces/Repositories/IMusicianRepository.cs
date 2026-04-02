@@ -1,5 +1,6 @@
 ﻿using MusicianFinder.Domain.Enums;
 using MusicianFinder.Domain.Models;
+using Musicianfinder_Back.ApplicationCore.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +34,9 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
 
         // ── Description ───────────────────────────────────────────────────
         Task SaveDescriptionAsync(long musicianId, string? description);
+
+        // ── Profil retourné ───────────────────────────────────────────────
+        Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id);
 
     }
 }
