@@ -19,9 +19,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // - Services
 builder.Services.AddScoped<IMusicianService, MusicianService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 // - Repositories
 builder.Services.AddScoped<IMusicianRepository, MusicianRepository>();
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
