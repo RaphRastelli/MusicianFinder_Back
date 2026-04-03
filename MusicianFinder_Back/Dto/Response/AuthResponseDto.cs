@@ -2,6 +2,9 @@
 {
     public class AuthResponseDto
     {
-        public required string Token { get; set; }
+        public long Id { get; set; }   // ← nouveau
+        public string Token { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
     }
 }

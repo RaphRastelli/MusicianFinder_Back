@@ -41,11 +41,12 @@ namespace MusicianFinder_Back.WebAPI.Controllers
             });
 
             // 3. La réponse correspond exactement à ce qu'attend le frontend
-            return Ok(new
+            return Ok(new AuthResponseDto
             {
-                token = token,
-                username = musician.Username,
-                role = musician.Role.ToString()
+                Id = musician.Id,
+                Token = token,
+                Username = musician.Username,
+                Role = musician.Role.ToString()
             });
         }
 
@@ -60,10 +61,12 @@ namespace MusicianFinder_Back.WebAPI.Controllers
                 Role = musician.Role.ToString()
             });
 
-            return Ok(new {
-                token = token,
-                username = musician.Username,
-                role = musician.Role.ToString()
+            return Ok(new AuthResponseDto
+            {
+                Id = musician.Id,
+                Token = token,
+                Username = musician.Username,
+                Role = musician.Role.ToString()
             });
         }
     }

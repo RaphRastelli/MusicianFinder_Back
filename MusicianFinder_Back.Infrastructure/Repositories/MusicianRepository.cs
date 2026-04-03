@@ -253,7 +253,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
                 "LongTermAvecGarantie" => "Projet à long terme avec garantie financière",
                 "PonctuelSansGarantie" => "Projet ponctuel sans garantie financière",
                 "PonctuelAvecGarantie" => "Projet ponctuel avec garantie financière",
-                "Cours" => "Je donne des cours de mon instrument",
+                "Cours" => "Cours de mon instrument",
                 _ => pt.ProjectType.TypeName
             })
             .ToList(),
