@@ -83,7 +83,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
         public async Task SaveNiveauAsync(long musicianId, AbilityLevelEnum ability)
         {
             var musician = await _DbContext.Musicians.FindAsync(musicianId)
-                ?? throw new Exception("Musicien introuvable.");
+                ?? throw new Exception("Musicien.ne introuvable.");
 
             musician.SetAbility(ability);
             await _DbContext.SaveChangesAsync();
@@ -93,7 +93,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
         public async Task SaveDisponibiliteAsync(long musicianId, AvailabilityLevelEnum availability)
         {
             var musician = await _DbContext.Musicians.FindAsync(musicianId)
-                ?? throw new Exception("Musicien introuvable.");
+                ?? throw new Exception("Musicien.ne introuvable.");
 
             musician.SetAvailability(availability);
             await _DbContext.SaveChangesAsync();
@@ -170,7 +170,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
         public async Task SaveDescriptionAsync(long musicianId, string? description)
         {
             var musician = await _DbContext.Musicians.FindAsync(musicianId)
-                ?? throw new Exception("Musicien introuvable.");
+                ?? throw new Exception("Musicien.ne introuvable.");
 
             musician.SetDescription(description);
             await _DbContext.SaveChangesAsync();
