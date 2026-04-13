@@ -54,7 +54,7 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
                 .Where(p => p.MusicianIdFK == musicianId && p.IsMainInstrument);
             _DbContext.MusicianPlaysInstruments.RemoveRange(existing);
 
-            // On passe par le static factory method — plus de new direct
+            // On passe par le static factory method
             _DbContext.MusicianPlaysInstruments.Add(
                 MusicianPlaysInstrument.Create(musicianId, instrumentId, isMainInstrument: true)
             );
