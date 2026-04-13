@@ -11,4 +11,7 @@
   <Folder Name="/Presentation/">
     <Project Path="MusicianFinder_Back/MusicianFinder_Back.WebAPI.csproj" />
   </Folder>
+  <Folder Name="/Éléments de solution/">
+    <File Path="readme.md" />
+  </Folder>
 </Solution>
