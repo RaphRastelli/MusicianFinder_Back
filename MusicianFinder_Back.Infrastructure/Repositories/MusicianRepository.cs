@@ -48,11 +48,28 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
         }
 
         // ── Instrument principal ──────────────────────────────────────────────────
+        /*public async Task SaveInstrumentPrincipalAsync(long musicianId, int instrumentId)
+        {
+            var existing = _DbContext.MusicianPlaysInstruments
+                .Where(p => p.MusicianIdFK == musicianId && p.IsMainInstrument);
+            _DbContext.MusicianPlaysInstruments.RemoveRange(existing);
+
+            // On passe par le static factory method
+            _DbContext.MusicianPlaysInstruments.Add(
+                MusicianPlaysInstrument.Create(musicianId, instrumentId, isMainInstrument: true)
+            );
+
+            await _DbContext.SaveChangesAsync();
+        }*/
+
         public async Task SaveInstrumentPrincipalAsync(long musicianId, int instrumentId)
         {
             var existing = _DbContext.MusicianPlaysInstruments
                 .Where(p => p.MusicianIdFK == musicianId && p.IsMainInstrument);
             _DbContext.MusicianPlaysInstruments.RemoveRange(existing);
+
+            // Valide la suppression AVANT l'insertion
+            await _DbContext.SaveChangesAsync();
 
             // On passe par le static factory method
             _DbContext.MusicianPlaysInstruments.Add(
@@ -136,11 +153,27 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
         }
 
         // ── Style principal ───────────────────────────────────────────────────────
+        /*public async Task SaveStylePrincipalAsync(long musicianId, int styleId)
+        {
+            var existing = _DbContext.MusicianLikesStyles
+                .Where(s => s.MusicianIdFK == musicianId && s.IsMainStyle);
+            _DbContext.MusicianLikesStyles.RemoveRange(existing);
+
+            _DbContext.MusicianLikesStyles.Add(
+                MusicianLikesStyle.Create(musicianId, styleId, isMainStyle: true)
+            );
+
+            await _DbContext.SaveChangesAsync();
+        }*/
+
         public async Task SaveStylePrincipalAsync(long musicianId, int styleId)
         {
             var existing = _DbContext.MusicianLikesStyles
                 .Where(s => s.MusicianIdFK == musicianId && s.IsMainStyle);
             _DbContext.MusicianLikesStyles.RemoveRange(existing);
+
+            // ← SaveChanges ici — valide la suppression AVANT l'insertion
+            await _DbContext.SaveChangesAsync();
 
             _DbContext.MusicianLikesStyles.Add(
                 MusicianLikesStyle.Create(musicianId, styleId, isMainStyle: true)
