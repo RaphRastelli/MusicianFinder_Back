@@ -15,9 +15,9 @@ namespace Musicianfinder_Back.ApplicationCore.Services
 
         public async Task<SearchResultAppDto> SearchAsync(SearchRequestAppDto dto)
         {
-            // Étape 1 — filtrage strict via le repository
+            // Filtrage strict sur Instrument ET Location
             var musicians = await _searchRepository
-                .GetMusiciansByInstrumentAsync(dto.InstrumentId);
+                .GetMusiciansByInstrumentAsync(dto.InstrumentId, dto.LocationId);
 
             if (musicians.Count == 0)
             {
@@ -25,7 +25,8 @@ namespace Musicianfinder_Back.ApplicationCore.Services
                 {
                     Musicians = new List<MusicianResultAppDto>(),
                     TotalCount = 0,
-                    NoInstrumentMatch = true
+                    NoInstrumentMatch = false,  // pas forcément l'instrument le problème
+                    NoMatch = true    // nouveau flag plus générique
                 };
             }
 

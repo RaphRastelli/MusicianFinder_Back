@@ -44,7 +44,8 @@ namespace MusicianFinder_Back.WebAPI.Controllers
                     Score = m.Score
                 }).ToList(),
                 TotalCount = result.TotalCount,
-                NoInstrumentMatch = result.NoInstrumentMatch
+                NoInstrumentMatch = result.NoInstrumentMatch,
+                NoMatch = result.NoMatch
             });
         }
     }

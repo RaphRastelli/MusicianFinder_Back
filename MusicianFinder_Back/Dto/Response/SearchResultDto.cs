@@ -5,5 +5,6 @@
         public List<MusicianResultDto> Musicians { get; set; } = new();
         public int TotalCount { get; set; }
         public bool NoInstrumentMatch { get; set; }
+        public bool NoMatch { get; set; }
     }
 }

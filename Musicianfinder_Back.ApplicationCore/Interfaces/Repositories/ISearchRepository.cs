@@ -6,6 +6,6 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
     {
         // Retourne les musiciens jouant l'instrument cherché
         // avec toutes leurs relations chargées pour le calcul du score
-        Task<List<MusicianSearchAppDto>> GetMusiciansByInstrumentAsync(int instrumentId);
+        Task<List<MusicianSearchAppDto>> GetMusiciansByInstrumentAsync(int instrumentId, int locationId);
     }
 }
