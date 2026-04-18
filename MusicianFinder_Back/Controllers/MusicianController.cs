@@ -130,5 +130,15 @@ namespace MusicianFinder_Back.WebAPI.Controllers
                 Email = profile.Email
             });
         }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMyProfile()
+        {
+            var musicianId = GetMusicianIdFromToken();
+            var profile = await _musicianService.GetMyProfileAsync(musicianId);
+
+            if (profile is null) return NotFound();
+            return Ok(profile);
+        }
     }
 }

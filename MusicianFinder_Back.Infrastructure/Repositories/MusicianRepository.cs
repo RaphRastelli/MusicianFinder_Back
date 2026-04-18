@@ -296,5 +296,10 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
                 Email = m.Email
             };
         }
+
+        public async Task<MusicianProfileAppDto?> GetMyProfileAsync(long musicianId)
+        {
+            return await GetProfileByIdAsync(musicianId);
+        }
     }
 }

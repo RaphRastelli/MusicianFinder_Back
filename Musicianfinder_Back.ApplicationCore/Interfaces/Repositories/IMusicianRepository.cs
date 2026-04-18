@@ -38,5 +38,8 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Repositories
         // ── Profil retourné ───────────────────────────────────────────────
         Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id);
 
+        // ── Mon Profil retourné ─────────────────────────────────────-─────
+        Task<MusicianProfileAppDto?> GetMyProfileAsync(long musicianId);
+
     }
 }

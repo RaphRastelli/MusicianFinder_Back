@@ -140,5 +140,10 @@ namespace Musicianfinder_Back.ApplicationCore.Services
         {
             return await _musicianRepository.GetProfileByIdAsync(id);
         }
+
+        public async Task<MusicianProfileAppDto?> GetMyProfileAsync(long musicianId)
+        {
+            return await _musicianRepository.GetMyProfileAsync(musicianId);
+        }
     }
 }

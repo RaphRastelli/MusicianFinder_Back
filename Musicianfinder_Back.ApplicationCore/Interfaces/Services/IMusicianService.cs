@@ -19,5 +19,6 @@ namespace Musicianfinder_Back.ApplicationCore.Interfaces.Services
         Task SaveStylesSecondaires(long musicianId, List<int> styleIds);
         Task SaveDescription(long musicianId, string? description);
         Task<MusicianProfileAppDto?> GetProfileByIdAsync(long id);
+        Task<MusicianProfileAppDto?> GetMyProfileAsync(long musicianId);
     }
 }
