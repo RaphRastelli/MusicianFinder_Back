@@ -64,14 +64,19 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
 
         public async Task SaveInstrumentPrincipalAsync(long musicianId, int instrumentId)
         {
-            var existing = _DbContext.MusicianPlaysInstruments
-                .Where(p => p.MusicianIdFK == musicianId && p.IsMainInstrument);
-            _DbContext.MusicianPlaysInstruments.RemoveRange(existing);
+            // Supprime l'ancien instrument principal
+            await _DbContext.Database.ExecuteSqlRawAsync(
+                @"DELETE FROM Musician_Instruments 
+          WHERE MusicianIdFK = {0} AND Is_Main_Instrument = 1",
+                musicianId);
 
-            // Valide la suppression AVANT l'insertion
-            await _DbContext.SaveChangesAsync();
+            // Supprime aussi cet instrument s'il existe en secondaire
+            // pour éviter la violation de l'index unique (MusicianIdFK, InstrumentIdFK)
+            await _DbContext.Database.ExecuteSqlRawAsync(
+                @"DELETE FROM Musician_Instruments 
+          WHERE MusicianIdFK = {0} AND InstrumentIdFK = {1} AND Is_Main_Instrument = 0",
+                musicianId, instrumentId);
 
-            // On passe par le static factory method
             _DbContext.MusicianPlaysInstruments.Add(
                 MusicianPlaysInstrument.Create(musicianId, instrumentId, isMainInstrument: true)
             );
@@ -168,12 +173,17 @@ namespace MusicianFinder_Back.Infrastructure.Repositories
 
         public async Task SaveStylePrincipalAsync(long musicianId, int styleId)
         {
-            var existing = _DbContext.MusicianLikesStyles
-                .Where(s => s.MusicianIdFK == musicianId && s.IsMainStyle);
-            _DbContext.MusicianLikesStyles.RemoveRange(existing);
+            // Supprime l'ancien style principal
+            await _DbContext.Database.ExecuteSqlRawAsync(
+                @"DELETE FROM Musician_Styles 
+          WHERE MusicianIdFK = {0} AND Is_Main_Style = 1",
+                musicianId);
 
-            // ← SaveChanges ici — valide la suppression AVANT l'insertion
-            await _DbContext.SaveChangesAsync();
+            // Supprime aussi ce style s'il existe en secondaire
+            await _DbContext.Database.ExecuteSqlRawAsync(
+                @"DELETE FROM Musician_Styles 
+          WHERE MusicianIdFK = {0} AND StyleIdFK = {1} AND Is_Main_Style = 0",
+                musicianId, styleId);
 
             _DbContext.MusicianLikesStyles.Add(
                 MusicianLikesStyle.Create(musicianId, styleId, isMainStyle: true)
